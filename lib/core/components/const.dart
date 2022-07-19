@@ -7,6 +7,8 @@ class AppColor {
   static const Color kLinear2 = Color(0xFF00CCFF);
   static const Color kBlue = Color(0xFF016BD4);
   static const Color kGrey = Color(0xFF9D9D9D);
-  static const LinearGradient klinearGradient =
-      LinearGradient(colors: [kLinear1, kLinear2]);
+  static const LinearGradient klinearGradient = LinearGradient(
+      colors: [kLinear1, kLinear2],
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter);
 }
