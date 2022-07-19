@@ -23,6 +23,8 @@ dependencies:
   hive: ^2.2.3
   http: ^0.13.4
   flutter_screenutil: ^5.5.3+2
+  intl_phone_number_input: ^0.7.0+2
+  pinput: ^2.2.11
 
 dev_dependencies:
   flutter_test:
@@ -47,10 +49,10 @@ flutter:
   fonts:
     - family: Inter
       fonts:
-        - asset: assets/fonts/Inter-Regular
-        - asset: assets/fonts/Inter-Medium
-        - asset: assets/fonts/Inter-Light
-        - asset: assets/fonts/Inter-Bold
+        - asset: assets/fonts/Inter-Regular.ttf
+        - asset: assets/fonts/Inter-Medium.ttf
+        - asset: assets/fonts/Inter-Light.ttf
+        - asset: assets/fonts/Inter-Bold.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:
