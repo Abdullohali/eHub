@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:ehub/core/components/const.dart';
 import 'package:ehub/core/components/icons_name.dart';
 import 'package:ehub/screens/auth/sign_up_page.dart';
+import 'package:ehub/screens/home/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -15,12 +16,15 @@ class SplashScreenPage extends StatefulWidget {
 }
 
 class _SplashScreenPageState extends State<SplashScreenPage> {
+  bool isAvtive = false;
   @override
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) =>  SignUpPage()));
+          context,
+          MaterialPageRoute(
+              builder: (_) => isAvtive ? HomeScreen() : SignUpPage()));
     });
   }
 

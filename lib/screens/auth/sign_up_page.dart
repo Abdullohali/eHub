@@ -1,7 +1,5 @@
 import 'package:ehub/screens/auth/sms_confirmation_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
@@ -12,7 +10,7 @@ class SignUpPage extends StatelessWidget {
   SignUpPage({Key? key}) : super(key: key);
 
   final String initialCountry = 'UZ';
-  final PhoneNumber number =
+  PhoneNumber number =
       PhoneNumber(isoCode: 'UZ', dialCode: "+998", phoneNumber: "##-###-##-##");
   final TextEditingController controller = TextEditingController();
 
@@ -68,7 +66,8 @@ class SignUpPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(7.r))),
                       child: Text(
                         "Вход / Регистрация",
-                        style: TextStyle(color: AppColor.kWhite, fontSize: 13.h),
+                        style:
+                            TextStyle(color: AppColor.kWhite, fontSize: 13.h),
                       ),
                     ),
                   ],
@@ -102,8 +101,9 @@ class SignUpPage extends StatelessWidget {
         selectorTextStyle: const TextStyle(color: Colors.black),
         initialValue: number,
         textFieldController: controller,
-        formatInput: false,
-        keyboardType: const TextInputType.numberWithOptions(),
+        formatInput: true,
+        keyboardType: const TextInputType.numberWithOptions(
+            decimal: false, signed: false),
       ),
     );
   }
