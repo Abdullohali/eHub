@@ -9,6 +9,8 @@ import '../../widgets/main_appbar.dart';
 
 class RegisterPage extends StatelessWidget {
   RegisterPage({Key? key}) : super(key: key);
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(
@@ -17,6 +19,7 @@ class RegisterPage extends StatelessWidget {
         return Container(
           decoration: const BoxDecoration(gradient: AppColor.klinearGradient),
           child: Scaffold(
+            key: _scaffoldKey,
             backgroundColor: Colors.transparent,
             appBar: mainAppbar(context, isBack: true),
             body: SizedBox(
@@ -83,11 +86,27 @@ class RegisterPage extends StatelessWidget {
                         SizedBox(height: 15.h),
                         ElevatedButton(
                           onPressed: () {
-                            if (cubit.formKey.currentState!.validate()) {
+                            var e = cubit.dateController.text;
+                            if (cubit.nameController.text.isEmpty ||
+                                cubit.surnameController.text.isEmpty ||
+                                cubit.dateController.text.length < 10) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text("Введите корректные данные"),
+                                  duration: Duration(seconds: 3),
+                                  action: SnackBarAction(
+                                    label: 'Dismiss',
+                                    onPressed: () {},
+                                  ),
+                                ),
+                              );
+                            } else {
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ChooseGoalPage()));
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const ChooseGoalPage(),
+                                ),
+                              );
                             }
                           },
                           style: ElevatedButton.styleFrom(
@@ -183,11 +202,6 @@ class RegisterPage extends StatelessWidget {
                   color: AppColor.kWhite),
               child: inputformat == "date"
                   ? TextFormField(
-                      validator: (e) {
-                        if (e!.length < 9) {
-                          return "sana xato kiritildi";
-                        }
-                      },
                       controller: controller,
                       keyboardType: TextInputType.numberWithOptions(),
                       inputFormatters: [

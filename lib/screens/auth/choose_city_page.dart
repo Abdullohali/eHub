@@ -45,7 +45,8 @@ class ChooseCityPage extends StatelessWidget {
                                 return ListTile(
                                   onTap: () async {
                                     context.read<AuthCubit>().variants.add(
-                                        snapshot.data![0].variants![__].id,);
+                                       snapshot.data![0].variants![__].id
+                                    );
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(

@@ -4,6 +4,7 @@ import 'package:ehub/screens/auth/sms_confirmation_page.dart';
 import 'package:ehub/screens/home/main_screen.dart';
 import 'package:ehub/service/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 
 part 'auth_state.dart';
@@ -19,7 +20,7 @@ class AuthCubit extends Cubit<AuthState> {
   final TextEditingController surnameController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
 
-  var variants = [];
+  List variants = [];
 
   void onSignUpPressed(BuildContext context) async {
     String phone = signUpphoneController.text.trim();

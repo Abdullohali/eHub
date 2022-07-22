@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:ehub/models/cities_model.dart';
 import 'package:hive/hive.dart';
@@ -87,22 +88,22 @@ class EHubRegisterService {
       "last_name": surname.toString(),
       "gender": gender,
       "birth_date": date,
-      // "variants": variants.toString(),
+
       // "job_location": [25.1548561, 23.4578541].toString(),
       // "home_location": [25.1548561, 23.4578541].toString()
     });
+    var request2 = await http.post(Uri.parse('$baseUrl/course/post_user_info/'),
+        body: encoded);
+
     request.headers['Authorization'] = await Hive.box('user').get('token');
 
-    print("date $date ");
-
     http.StreamedResponse response = await request.send();
-
     print("statusc" + response.statusCode.toString());
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
+     await Hive.box('user').put('isActive', 'Yes');
+
       var data = await response.stream.bytesToString();
-      print("statuscode " + response.statusCode.toString());
-      print("date post" + data.toString());
       return jsonDecode(data);
     } else {
       return null;

@@ -7,6 +7,7 @@ import '../core/components/icons_name.dart';
 
 AppBar mainAppbar(BuildContext context, {bool isBack = true}) {
   return AppBar(
+    automaticallyImplyLeading: false,
     backgroundColor: Colors.transparent,
     elevation: 0,
     leading: isBack
