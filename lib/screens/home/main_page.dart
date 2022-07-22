@@ -15,7 +15,7 @@ class MainPage extends StatelessWidget {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.transparent,
-        appBar: mainAppbar(context, isBack: false),
+        appBar: mainAppbar(context, isBack: true),
         body: Center(
           child: Text(
             "Welcome to EHub",

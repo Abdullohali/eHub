@@ -1,4 +1,4 @@
-import 'package:ehub/allCubit/cubit/bottobmar_cubit.dart';
+import 'package:ehub/allCubit/bottobmar_cubit.dart';
 import 'package:ehub/core/components/const.dart';
 import 'package:ehub/screens/home/main_page.dart';
 import 'package:flutter/material.dart';
@@ -17,20 +17,17 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => BottombarCubit(),
-      child: BlocBuilder<BottombarCubit, BottobmarState>(
-        builder: (ctx, state) {
-          BottombarCubit cubit = ctx.watch();
-          return Scaffold(
-            backgroundColor: AppColor.kLinear2,
-            body: _showBody(cubit.currentPageIndex, cubit.onBottomBarChanged),
-            bottomNavigationBar: AppBottomNavBar(
-                currentIndex: cubit.currentPageIndex,
-                onPressed: cubit.onBottomBarChanged),
-          );
-        },
-      ),
+    return BlocBuilder<BottombarCubit, BottobmarState>(
+      builder: (ctx, state) {
+        BottombarCubit cubit = ctx.watch();
+        return Scaffold(
+          backgroundColor: AppColor.kLinear2,
+          body: _showBody(cubit.currentPageIndex, cubit.onBottomBarChanged),
+          bottomNavigationBar: AppBottomNavBar(
+              currentIndex: cubit.currentPageIndex,
+              onPressed: cubit.onBottomBarChanged),
+        );
+      },
     );
   }
 

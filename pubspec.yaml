@@ -26,6 +26,9 @@ dependencies:
   intl_phone_number_input: ^0.7.0+2
   pinput: ^2.2.11
   mask_text_input_formatter: 2.3.0
+  flutter_map: ^2.0.0
+  geolocator: ^9.0.1
+  hive_flutter: ^1.1.0
 
 dev_dependencies:
   flutter_test:

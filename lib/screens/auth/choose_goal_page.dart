@@ -7,6 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../core/components/const.dart';
+import '../../models/cities_model.dart';
+import '../../service/auth_service.dart';
 import '../../widgets/main_appbar.dart';
 import '../../widgets/main_bottomsheet.dart';
 import 'arias_page.dart';
@@ -41,48 +43,77 @@ class ChooseGoalPage extends StatelessWidget {
                       color: AppColor.kWhite,
                       fontWeight: FontWeight.w400),
                 ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (_, __) {
-                    return Padding(
-                      padding: EdgeInsets.symmetric(vertical: 5.h),
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.r),
-                                  side: BorderSide(
-                                      color: AppColor.kWhite.withOpacity(0.7))),
-                              minimumSize: Size(343.w, 80.h)),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: ((context) => AriasPage())));
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Изучение языка",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1),
-                                  Text("Изучать иностранные языки",
-                                      style: TextStyle(
-                                          color: AppColor.kWhite,
-                                          fontSize: 13.sp,
-                                          fontWeight: FontWeight.w400)),
-                                ],
-                              ),
-                              SvgPicture.asset(AppIcons.eWhite),
-                            ],
-                          )),
+                FutureBuilder(
+                  future: EHubRegisterService().cityService(),
+                  builder: (context, AsyncSnapshot<List<Citiyes>?> snapshot) {
+                    if (snapshot.hasData) {
+                      var snap = snapshot.data;
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (_, __) {
+                          return Padding(
+                            padding: EdgeInsets.symmetric(vertical: 5.h),
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15.r),
+                                        side: BorderSide(
+                                            color: AppColor.kWhite
+                                                .withOpacity(0.7))),
+                                    minimumSize: Size(343.w, 80.h)),
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: ((context) => AriasPage())));
+                                },
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      flex: 6,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                              snap![2]
+                                                  .variants![__]
+                                                  .name
+                                                  .toString(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1),
+                                          Text(
+                                              snap[2]
+                                                  .variants![__]
+                                                  .description
+                                                  .toString(),
+                                              style: TextStyle(
+                                                  color: AppColor.kWhite,
+                                                  fontSize: 13.sp,
+                                                  fontWeight: FontWeight.w400)),
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                        child:
+                                            SvgPicture.asset(AppIcons.eWhite)),
+                                  ],
+                                )),
+                          );
+                        },
+                        itemCount: snap![2].variants!.length,
+                      );
+                    }
+                    return const Center(
+                      child: CircularProgressIndicator(),
                     );
                   },
-                  itemCount: 12,
                 )
               ],
             ),

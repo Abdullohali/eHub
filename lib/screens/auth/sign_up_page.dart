@@ -1,5 +1,7 @@
+import 'package:ehub/allCubit/auth_cubit.dart';
 import 'package:ehub/screens/auth/sms_confirmation_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
@@ -11,76 +13,81 @@ class SignUpPage extends StatelessWidget {
 
   final String initialCountry = 'UZ';
   PhoneNumber number =
-      PhoneNumber(isoCode: 'UZ', dialCode: "+998", phoneNumber: "##-###-##-##");
-  final TextEditingController controller = TextEditingController();
+      PhoneNumber(isoCode: 'UZ', dialCode: "+998");
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(gradient: AppColor.klinearGradient),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: mainAppbar(context, isBack: false),
-        body: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Добро пожаловать в E-Hub!",
-                style: Theme.of(context).textTheme.bodyText1,
-                textAlign: TextAlign.center,
+    return BlocBuilder<AuthCubit, AuthState>(
+      builder: (context, state) {
+        AuthCubit cubit = context.watch<AuthCubit>();
+        return Container(
+          decoration: const BoxDecoration(gradient: AppColor.klinearGradient),
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: mainAppbar(context, isBack: false),
+            body: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Добро пожаловать в E-Hub!",
+                    style: Theme.of(context).textTheme.bodyText1,
+                    textAlign: TextAlign.center,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 20),
+                    height: 264.h,
+                    width: 343.w,
+                    padding:
+                        EdgeInsets.only(top: 30.h, left: 25.w, right: 25.w),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.r),
+                        color: AppColor.kWhite),
+                    child: Column(
+                      children: [
+                        Text("Укажите номер телефона",
+                            style: Theme.of(context).textTheme.bodyText2,
+                            textAlign: TextAlign.center),
+                        SizedBox(height: 10.h),
+                        Text(
+                          "Вы получите СМС-код подтверждения на указанный номер",
+                          style: TextStyle(
+                              color: AppColor.kGrey, fontSize: 13.h),
+                          textAlign: TextAlign.center,
+                        ),
+                        phoneField(cubit.signUpphoneController),
+                        SizedBox(height: 20.h),
+                        ElevatedButton(
+                          onPressed: () {
+                            context
+                                .read<AuthCubit>()
+                                .onSignUpPressed(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                              minimumSize: Size(293.w, 40.h),
+                              primary: AppColor.kBlue,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(7.r))),
+                          child: Text(
+                            "Вход / Регистрация",
+                            style: TextStyle(
+                                color: AppColor.kWhite, fontSize: 13.h),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 20),
-                height: 264.h,
-                width: 343.w,
-                padding: EdgeInsets.only(top: 30.h, left: 25.w, right: 25.w),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20.r),
-                    color: AppColor.kWhite),
-                child: Column(
-                  children: [
-                    Text("Укажите номер телефона",
-                        style: Theme.of(context).textTheme.bodyText2,
-                        textAlign: TextAlign.center),
-                    SizedBox(height: 10.h),
-                    Text(
-                      "Вы получите СМС-код подтверждения на указанный номер",
-                      style: TextStyle(color: AppColor.kGrey, fontSize: 13.h),
-                      textAlign: TextAlign.center,
-                    ),
-                    phoneField(),
-                    SizedBox(height: 20.h),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SmsConfirmationPage()));
-                      },
-                      style: ElevatedButton.styleFrom(
-                          minimumSize: Size(293.w, 40.h),
-                          primary: AppColor.kBlue,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(7.r))),
-                      child: Text(
-                        "Вход / Регистрация",
-                        style:
-                            TextStyle(color: AppColor.kWhite, fontSize: 13.h),
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
-  Padding phoneField() {
+  Padding phoneField(TextEditingController controller) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
       child: InternationalPhoneNumberInput(
@@ -101,9 +108,8 @@ class SignUpPage extends StatelessWidget {
         selectorTextStyle: const TextStyle(color: Colors.black),
         initialValue: number,
         textFieldController: controller,
-        formatInput: true,
-        keyboardType: const TextInputType.numberWithOptions(
-            decimal: false, signed: false),
+        formatInput: false,
+        keyboardType: const TextInputType.numberWithOptions(),
       ),
     );
   }
