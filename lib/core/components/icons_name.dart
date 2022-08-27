@@ -5,4 +5,6 @@ class AppIcons {
   static String qr = 'assets/icons/QR.svg';
   static String user = 'assets/icons/User.svg';
   static String eWhite = 'assets/icons/e.svg';
+  
+  
 }
