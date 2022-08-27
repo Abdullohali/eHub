@@ -11,28 +11,31 @@ import '../../core/components/const.dart';
 import '../../widgets/main_appbar.dart';
 
 class SmsConfirmationPage extends StatefulWidget {
- const SmsConfirmationPage({Key? key}) : super(key: key);
+  const SmsConfirmationPage({Key? key}) : super(key: key);
 
   @override
   State<SmsConfirmationPage> createState() => _SmsConfirmationPageState();
 }
-
+  
 class _SmsConfirmationPageState extends State<SmsConfirmationPage> {
   Timer? _timer;
-
+  
   int _start = 60;
 
   void startTimer() {
     const oneSec = Duration(seconds: 1);
     _timer = Timer.periodic(
-        oneSec,
-        (Timer timer) => setState(() {
-              if (_start == 0) {
-                timer.cancel();
-              } else {
-                _start = _start - 1;
-              }
-            }));
+      oneSec,
+      (Timer timer) => setState(
+        () {
+          if (_start == 0) {
+            timer.cancel();
+          } else {
+            _start = _start - 1;
+          }
+        },
+      ),
+    );
   }
 
   @override
@@ -53,7 +56,7 @@ class _SmsConfirmationPageState extends State<SmsConfirmationPage> {
       builder: (context, state) {
         return Container(
           decoration: const BoxDecoration(gradient: AppColor.klinearGradient),
-          child: Scaffold(
+          child: Scaffold( 
             backgroundColor: Colors.transparent,
             appBar: mainAppbar(context, isBack: true),
             body: SizedBox(

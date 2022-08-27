@@ -95,7 +95,7 @@ class ChooseGoalPage extends StatelessWidget {
                                                       .textTheme
                                                       .bodyText1),
                                               Text(
-                                                  snap[2]
+                                                      snap[2]
                                                       .variants![__]
                                                       .description
                                                       .toString(),

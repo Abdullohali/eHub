@@ -1,6 +1,5 @@
 import 'package:ehub/core/components/const.dart';
 import 'package:ehub/core/components/icons_name.dart';
-import 'package:ehub/widgets/app_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -33,7 +32,7 @@ class _AppBottomNavBarState extends State<AppBottomNavBar> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20.r),
-          topRight: Radius.circular(20.r),
+          topRight: Radius.circular(20.r),  
         ),
         color: AppColor.kWhite,
       ),
